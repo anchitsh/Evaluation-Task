@@ -1,6 +1,6 @@
 # Evaluation-Task
 
-Main-
+Main -
 
 Unit can be controlled with mouse clicks
 
@@ -13,7 +13,7 @@ Cubes dissapear in 10 seconds
 
 
 
-Bonus-
+Bonus -
 
 Basic effects
 
