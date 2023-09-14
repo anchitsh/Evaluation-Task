@@ -7,7 +7,8 @@ using DG.Tweening;
 public class Unit : MonoBehaviour
 {
     public NavMeshAgent agent;
-    public bool isTeleporting = false;
+    [HideInInspector] public bool isTeleporting = false;
+    [HideInInspector] public bool canMove = true;
 
     public void Teleport(Vector3 fromPosition, Vector3 toPosition, Vector3 moveTowards)
     {
@@ -15,9 +16,11 @@ public class Unit : MonoBehaviour
         IEnumerator _Teleport()
         {
             isTeleporting = true;
-            this.transform.DOScale(.5f, .25f).SetEase(Ease.InOutQuart);
-
-            float timer = 0;
+            GameManager.instance.teleportAS.Play();
+            this.transform.DOScale(0f, .25f).SetEase(Ease.InOutQuart);
+            this.transform.DOMove(fromPosition, .25f).SetEase(Ease.InOutQuart);
+            agent.enabled = false;
+            canMove = false;
             yield return new WaitForSeconds(.25f);
 
             agent.enabled = false;
@@ -25,6 +28,10 @@ public class Unit : MonoBehaviour
             yield return new WaitForSeconds(.1f);
             isTeleporting = false;
             this.transform.DOScale(1f, .25f).SetEase(Ease.InOutQuart);
+            this.transform.DOMove(toPosition + (moveTowards * 4), .25f).SetEase(Ease.InOutQuart);
+            yield return new WaitForSeconds(.25f);
+
+            canMove = true;
         }
     }
 }

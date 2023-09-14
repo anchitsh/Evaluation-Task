@@ -1,22 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Cube : MonoBehaviour
 {
-    public bool isSpawned = false;
-    void Start()
-    {
-        
-    }
+    [HideInInspector] public bool isSpawned = false;
 
-    void Update()
-    {
-        
-    }
     public void Spawn()
     {
         this.gameObject.SetActive(true);
+        this.transform.localScale = new Vector3(.5f, .5f, .5f);
+        this.transform.DOScale(1, .25f).SetEase(Ease.InOutBack);
         StartCoroutine(CoolDown());
     }
 
@@ -30,11 +25,8 @@ public class Cube : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerEnter2");
-
         if (other.gameObject == GameManager.instance.unit.gameObject && GameManager.instance.unit.isTeleporting == false)
         {
-            Debug.Log("OnTriggerEnter");
             foreach(var cube in GameManager.instance.cubes)
             {
                 if(cube != this && cube.isSpawned == true)
