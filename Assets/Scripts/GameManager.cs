@@ -14,14 +14,7 @@ public class GameManager : MonoBehaviour
     public Unit unit;
     public Cube[] cubes;
     private int nextCube = 0;
-    public AudioSource clickAS;
-    public AudioSource teleportAS;
-    public AudioSource cubeAppearAS;
-    public Button movePlayerButton;
-    public Button placeCubesButton;
-
-    public Image transitionImage;
-
+    
     public enum State
     {
         MovePlayer,
@@ -29,6 +22,16 @@ public class GameManager : MonoBehaviour
     }
 
     public State state = State.MovePlayer;
+
+    //UI
+    public Button movePlayerButton;
+    public Button placeCubesButton;
+    public Image transitionImage;
+
+    //sfx
+    public AudioSource clickAS;
+    public AudioSource teleportAS;
+    public AudioSource cubeAppearAS;
 
     void Start()
     {
@@ -41,7 +44,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if (EventSystem.current.IsPointerOverGameObject()) return;
-        Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
